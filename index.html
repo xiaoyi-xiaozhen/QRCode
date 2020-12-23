@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>二维码在线生成平台</title>
+	</head>
+	<body>
+		<script src="src/jquery-3.4.1.js"></script>
+		<script type="text/javascript" src="src/jquery.qrcode.js"></script>
+		<script type="text/javascript" src="src/qrcode.js"></script>
+
+		<div style="width: 600px; text-align: center; margin: 0 auto;">
+			<ul style="list-style: none;">
+				<li style="line-height: 45px;">请在下面输入框内输入信息</li>
+				<li>
+					<textarea id="QRtext" maxlength="400" style="min-height: 300px; width: 500px; resize: vertical;"></textarea>
+					<span style="display: block; position: relative; left: 185px;">最多输入400个字符</span>
+				</li>
+				<li style="line-height: 45px; padding-bottom: 15px;">
+					<button id="check" style="background-color: #295f4d; line-height: 35px; border: none; width: 100px;color: #FFFFFF;">
+						生成二维码
+					</button>
+				</li>
+				<li>
+					<div id="qrcodeCanvas"></div>
+				</li>
+			</ul>
+		</div>
+
+		<script>
+			$("#check").click(function() {
+				var str = $("#QRtext").val();
+				if (str) {
+					str = str.replace(/(^\s*)|(\s*$)/g, '');
+					if (str == "" || str == undefined || str == null) {
+						$("#qrcodeCanvas").html("");
+						alert("输入信息不能为空！");
+					} else {
+						$("#qrcodeCanvas").html("");
+						jQuery('#qrcodeCanvas').qrcode({
+							width: 256,
+							height: 256,
+							text: utf16to8(str)
+						});
+					}
+				} else {
+					$("#qrcodeCanvas").html("");
+					alert("输入信息不能为空！");
+				}
+			});
+		</script>
+
+	</body>
+</html>
